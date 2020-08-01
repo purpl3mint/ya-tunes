@@ -94,4 +94,10 @@ export const videoPlayerInit = () => {
         else
             videoPlayer.exitFullScreen();
     });
+
+    videoPlayerInit.stop = () => {
+        if (!videoPlayer.paused) {
+            stopPlay();
+        }
+    };
 };
