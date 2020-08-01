@@ -62,11 +62,7 @@ export const radioPlayerInit = () => {
 
 
     radioStop.addEventListener('click', () => {
-        if (audio.paused) {
-            audio.play();
-        } else {
-            audio.pause();
-        }
+        audio.paused ? audio.play() : audio.pause();
 
         changeIconPlay();
     });

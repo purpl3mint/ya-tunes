@@ -1,4 +1,4 @@
-import { addZero } from './common.js';
+import { formattedTime } from './common.js';
 
 export const musicPlayerInit = () => {
     const audio = document.querySelector('.audio');
@@ -24,11 +24,7 @@ export const musicPlayerInit = () => {
         audioPlayer.src = `./audio/${track}.mp3`;
         audioHeader.textContent = track.toUpperCase();
 
-        if (isPlayed) {
-            audioPlayer.pause();
-        } else {
-            audioPlayer.play();
-        }
+        isPlayed ? audioPlayer.pause() : audioPlayer.play();
 
         setTimeout(updateTime, 500);
     };
@@ -64,8 +60,8 @@ export const musicPlayerInit = () => {
         const minutesTotal = Math.floor(duration / 60) || '0';
         const secondsTotal = Math.floor(duration % 60) || '0';
 
-        audioTimePassed.textContent = `${addZero(minutesPassed)}:${addZero(secondsPassed)}`;
-        audioTimeTotal.textContent = `${addZero(minutesTotal)}:${addZero(secondsTotal)}`;
+        audioTimePassed.textContent = formattedTime(minutesPassed, secondsPassed);
+        audioTimeTotal.textContent = formattedTime(minutesTotal, secondsTotal);
     }
 
     audioNavigation.addEventListener('click', event => {
@@ -76,11 +72,7 @@ export const musicPlayerInit = () => {
             audioButtonPlay.classList.toggle('fa-play');
             audioButtonPlay.classList.toggle('fa-pause');
 
-            if (audioPlayer.paused) {
-                audioPlayer.play();
-            } else {
-                audioPlayer.pause();
-            }
+            audioPlayer.paused ? audioPlayer.play() : audioPlayer.pause();
 
             const track = playlist[trackIndex];
             audioHeader.textContent = track.toUpperCase();

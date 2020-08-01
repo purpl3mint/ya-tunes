@@ -1,3 +1,5 @@
+import { formattedTime } from './common.js';
+
 export const videoPlayerInit = () => {
     const videoPlayer = document.querySelector('.video-player');
     const videoButtonPlay = document.querySelector('.video-button__play');
@@ -20,11 +22,7 @@ export const videoPlayerInit = () => {
     };
 
     const togglePlay = () => {
-        if (videoPlayer.paused) {
-            videoPlayer.play();
-        } else {
-            videoPlayer.pause();
-        }
+        videoPlayer.paused ? videoPlayer.play() : videoPlayer.pause();
 
         toggleIcon();
     };
@@ -34,8 +32,6 @@ export const videoPlayerInit = () => {
         videoPlayer.currentTime = 0;
     }
 
-    const addZero = n => n < 10 ? '0' + n : n;
-
     const volumeIconCheck = () => {
         if (videoVolume.value < 50) {
             videoVolumeIcon.classList.add('fa-volume-down');
@@ -43,7 +39,7 @@ export const videoPlayerInit = () => {
         } else {
             videoVolumeIcon.classList.remove('fa-volume-down');
             videoVolumeIcon.classList.add('fa-volume-up');
-        } 1
+        }
     }
 
 
@@ -67,8 +63,8 @@ export const videoPlayerInit = () => {
         let minutesTotal = Math.floor(duration / 60);
         let secondsTotal = Math.floor(duration % 60);
 
-        videoTimePassed.textContent = addZero(minutesPassed) + ':' + addZero(secondsPassed);
-        videoTimeTotal.textContent = addZero(minutesTotal) + ':' + addZero(secondsTotal);
+        videoTimePassed.textContent = formattedTime(minutesPassed, secondsPassed);
+        videoTimeTotal.textContent = formattedTime(minutesTotal, secondsTotal);
     });
 
     videoProgress.addEventListener('change', () => {
